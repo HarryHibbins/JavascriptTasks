@@ -1,20 +1,14 @@
 const { get } = require('callback-fetch');
 
-// const url = 'https://api.github.com/repos/sinatra/sinatra';
-
 const fetchJson = (url, callback) => {
-  result = get(url, handleReceivedResponse);
-  console.log(result)
+  get(url, (body) => {
+    return callback(JSON.parse(body));
+  });
 
 };
-
-const handleReceivedResponse = (body) => {
-  const responseObject = JSON.parse(body)
-  //  console.log(responseObject)
-}
-
-fetchJson('https://jsonplaceholder.typicode.com/todos', (response) => {
+fetchJson("https://jsonplaceholder.typicode.com/todos", (response) => {
+  const result = response
   console.log(response);
-})
-module.exports = fetchJson;
+});
 
+module.exports = fetchJson;
